@@ -12,3 +12,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+h1 {
+  font-size: 40px;
+  font-weight: 500;
+  color: rgb(129, 129, 129);
+}
+
+h2 {
+  font-size: 25px;
+  font-weight: 400;
+  color: rgb(117, 117, 117);
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 400;
+  color: rgb(117, 117, 117);
+  margin: 0;
+}
