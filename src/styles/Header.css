@@ -1,0 +1,31 @@
+
+.header__logo {
+  height: 120px;
+  padding: 0 15px;
+}
+
+.header__text {
+  align-self: flex-end;
+  padding-bottom: 10px;
+  min-width: 236px;
+  margin-right: 20%;
+}
+
+.title {
+  padding: 0;
+  margin: 0;
+  align-self: flex-end;
+}
+
+.subtitle {
+  padding: 0;
+  margin: 0;
+}
+
+.credits {
+  align-self: flex-end;
+  text-align: right;
+  max-width: 22%;
+  margin: 0;
+  padding-bottom: 10px;
+}
