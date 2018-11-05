@@ -1,16 +1,26 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ReactTable from "react-table";
 
-import "react-table/react-table.css";
-import '../styles/Data.css';
-import '../components/Query.js';
-  
+class Data extends Component {
 
-class Data extends React.Component {
   render() {
-    const data = props => props.data
-    
+    const data = [{
+      name: 'Tanner Linsley',
+      age: 26,
+      friend: {
+        name: 'Jason Maurer',
+        age: 23,
+      }
+    },{
+      name: 'Tanner Linsley',
+      age: 26,
+      friend: {
+        name: 'Jason Maurer',
+        age: 23,
+      }
+    }]
+  
     const columns = [{
       Header: 'Name',
       accessor: 'name' // String-based value accessors!
@@ -26,14 +36,13 @@ class Data extends React.Component {
       Header: props => <span>Friend Age</span>, // Custom header components!
       accessor: 'friend.age'
     }]
-    
-    return (
-      <ReactTable
+  
+  return (    <ReactTable
         data={data}
-        columns={columns}
-      />
-    )
+        columns={columns}/>
+  )
   }
 }
+
 
 export default Data;

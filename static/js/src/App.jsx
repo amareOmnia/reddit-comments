@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-import './styles/App.css';
-import Header from './components/Header';
-import Data from './components/Data';
+import Header from './components/Header.jsx';
+import Data from './components/Data.jsx';
 
 class App extends Component {
   render() {
@@ -12,7 +11,7 @@ class App extends Component {
           tagline='A database of all reddit comments ever'
           disclaimer='Not affiliated with Reddit.com'
         />
-        <Data/>
+        <Data></Data>
       </div>
     );
   }
