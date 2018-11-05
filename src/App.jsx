@@ -5,11 +5,6 @@ import Header from './components/Header';
 import Data from './components/Data';
 
 class App extends Component {
-  state = {
-    search: {},
-    page: {},
-  }
-  
   render() {
     return (
       <div className="App">

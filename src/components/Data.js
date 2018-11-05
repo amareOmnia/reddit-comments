@@ -9,21 +9,7 @@ import '../components/Query.js';
 
 class Data extends React.Component {
   render() {
-    const data = [{
-      name: 'Tanner Linsley',
-      age: 26,
-      friend: {
-        name: 'Jason Maurer',
-        age: 23,
-      }
-    },{
-      name: 'Cooper Linsley',
-      age: 23,
-      friend: {
-        name: 'Jason Borne',
-        age: 22,
-      }
-    }]
+    const data = props => props.data
     
     const columns = [{
       Header: 'Name',
