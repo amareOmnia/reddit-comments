@@ -1,13 +1,26 @@
 import os
 from flask import Flask, render_template, request, redirect, jsonify
 from react.render import render_component
-
 DEBUG = True
 
 app = Flask(__name__)
 app.debug = DEBUG
 
-comments = []
+data = [{
+    'name': 'Cooper Linsley',
+    'age': 26,
+    'friend': {
+        'name': 'Jason Maurer',
+        'age': 23,
+    }
+    },{
+    'name': 'Tanner Linsley',
+    'age': 26,
+    'friend': {
+        'name': 'Jason Maurer',
+        'age': 23,
+    }
+}]
 components_path = os.path.join(os.path.dirname(__file__), 'src')
 
 def path(js_file):
@@ -16,13 +29,11 @@ def path(js_file):
 @app.route('/')
 def index():
     store = {'component': 'App.jsx'}
-    store['props'] = {'comments': comments}
 
     rendered = render_component(
         os.path.join(os.getcwd(), 'static', 'js', path(store['component'])),
         {
-            'comments': comments,
-            'url': '/comment/',
+            'data': data,
         },
         to_static_markup=True,
     )
@@ -34,16 +45,16 @@ def index():
 
 @app.route('/comment/', methods=('POST',))
 def comment():
-    comments.append({
+    data.append({
         'author': request.form['author'],
         'text': request.form['text'],
     })
-    return jsonify({'comments': comments})
+    return jsonify({'data': data})
 
 @app.route('/clear/')
 def clear():
     comments = []
-    return jsonify({'comments': comments})
+    return jsonify({'data': data})
 
 if __name__ == '__main__':
     app.run()

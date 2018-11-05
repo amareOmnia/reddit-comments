@@ -1,25 +1,11 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import ReactTable from "react-table";
 
 class Data extends Component {
-
+  
   render() {
-    const data = [{
-      name: 'Tanner Linsley',
-      age: 26,
-      friend: {
-        name: 'Jason Maurer',
-        age: 23,
-      }
-    },{
-      name: 'Tanner Linsley',
-      age: 26,
-      friend: {
-        name: 'Jason Maurer',
-        age: 23,
-      }
-    }]
+    const data = this.props.data
   
     const columns = [{
       Header: 'Name',
@@ -43,6 +29,5 @@ class Data extends Component {
   )
   }
 }
-
 
 export default Data;
