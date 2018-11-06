@@ -8,10 +8,12 @@ class Data extends Component {
     const data = this.props.data
     const columns = this.props.columns
   
-  return (    <ReactTable
+    return (    
+      <ReactTable
         data={data}
-        columns={columns}/>
-  )
+        columns={columns}
+      />
+    )
   }
 }
 

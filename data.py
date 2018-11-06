@@ -5,28 +5,19 @@ import auth as b
 import queries as q
 
 
-# def get_data():
-#     data = [{
-#     'name': 'Cooper Linsley',
-#     'age': 26,
-#     'friend': 'Jason Maurer',
-#     },{
-#     'name': 'Tanner Linsley',
-#     'age': 26,
-#     'friend': 'Cooper Friend',
-#     }]
-#     return data
-
 def get_columns():
     columns = [{
     'Header': 'User',
-    'accessor': 'author'
+    'accessor': 'author',
+    'maxWidth': 120
     }, {
     'Header': 'Body',
-    'accessor': 'body'
+    'accessor': 'body',
+    'minWidth': 700
     }, {
-    'Header': 'Score',
+    'Header': 'Vote',
     'accessor': 'score',
+    'maxWidth': 70
     },]
     return columns
 

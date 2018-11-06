@@ -19948,7 +19948,8 @@
 
 	      return _react2.default.createElement(_reactTable2.default, {
 	        data: data,
-	        columns: columns });
+	        columns: columns
+	      });
 	    }
 	  }]);
 

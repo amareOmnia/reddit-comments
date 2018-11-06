@@ -4,4 +4,4 @@ WHERE score>6
 AND body!='[removed]' 
 AND body!='[deleted]' 
 AND subreddit='philosophy' OR subreddit = 'academia'
-LIMIT 40'''
+LIMIT 100'''
