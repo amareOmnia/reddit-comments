@@ -11,7 +11,7 @@ class App extends Component {
           tagline='A database of all reddit comments ever'
           disclaimer='Not affiliated with Reddit.com'
         />
-        <Data data={this.props.data}/>
+        <Data data={this.props.data} columns={this.props.columns}/>
       </div>
     );
   }

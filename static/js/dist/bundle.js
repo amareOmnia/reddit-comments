@@ -19832,7 +19832,7 @@
 	          tagline: 'A database of all reddit comments ever',
 	          disclaimer: 'Not affiliated with Reddit.com'
 	        }),
-	        _react2.default.createElement(_Data2.default, { data: this.props.data })
+	        _react2.default.createElement(_Data2.default, { data: this.props.data, columns: this.props.columns })
 	      );
 	    }
 	  }]);
@@ -19944,36 +19944,7 @@
 	    key: "render",
 	    value: function render() {
 	      var data = this.props.data;
-
-	      var columns = [{
-	        Header: 'Name',
-	        accessor: 'name' // String-based value accessors!
-	      }, {
-	        Header: 'Age',
-	        accessor: 'age',
-	        Cell: function Cell(props) {
-	          return _react2.default.createElement(
-	            "span",
-	            { className: "number" },
-	            props.value
-	          );
-	        } // Custom cell components!
-	      }, {
-	        id: 'friendName', // Required because our accessor is not a string
-	        Header: 'Friend Name',
-	        accessor: function accessor(d) {
-	          return d.friend.name;
-	        } // Custom value accessors!
-	      }, {
-	        Header: function Header(props) {
-	          return _react2.default.createElement(
-	            "span",
-	            null,
-	            "Friend Age"
-	          );
-	        }, // Custom header components!
-	        accessor: 'friend.age'
-	      }];
+	      var columns = this.props.columns;
 
 	      return _react2.default.createElement(_reactTable2.default, {
 	        data: data,

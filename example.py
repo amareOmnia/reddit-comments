@@ -1,26 +1,18 @@
 import os
 from flask import Flask, render_template, request, redirect, jsonify
 from react.render import render_component
+
+import data as d
+
 DEBUG = True
 
 app = Flask(__name__)
 app.debug = DEBUG
 
-data = [{
-    'name': 'Cooper Linsley',
-    'age': 26,
-    'friend': {
-        'name': 'Jason Maurer',
-        'age': 23,
-    }
-    },{
-    'name': 'Tanner Linsley',
-    'age': 26,
-    'friend': {
-        'name': 'Jason Maurer',
-        'age': 23,
-    }
-}]
+client = d.Data()
+data = client.ping_query()
+columns = d.get_columns()
+
 components_path = os.path.join(os.path.dirname(__file__), 'src')
 
 def path(js_file):
@@ -34,6 +26,7 @@ def index():
         os.path.join(os.getcwd(), 'static', 'js', path(store['component'])),
         {
             'data': data,
+            'columns': columns,
         },
         to_static_markup=True,
     )
@@ -53,7 +46,7 @@ def comment():
 
 @app.route('/clear/')
 def clear():
-    comments = []
+    data = []
     return jsonify({'data': data})
 
 if __name__ == '__main__':

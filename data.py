@@ -1,36 +1,60 @@
-import os
-from react.render import render_component
+import bigquery
+import time
 
-# components_path = os.path.join(os.path.dirname(__file__), 'src')
-
-# def path(js_file):
-#     return os.path.join(components_path, js_file)
-
-def render():
-  comments = [{
-    'name': 'Tanner Linsley',
-    'age': 26,
-    'friend': {
-        'name': 'Jason Maurer',
-        'age': 23,
-    }
-    },{
-    'name': 'Cooper Linsley',
-    'age': 23,
-    'friend': {
-        'name': 'Jason Borne',
-        'age': 22,
-    }
-  }]
+import auth as b
+import queries as q
 
 
-  store = {'component': 'Data.jsx'}
+# def get_data():
+#     data = [{
+#     'name': 'Cooper Linsley',
+#     'age': 26,
+#     'friend': 'Jason Maurer',
+#     },{
+#     'name': 'Tanner Linsley',
+#     'age': 26,
+#     'friend': 'Cooper Friend',
+#     }]
+#     return data
 
-  rendered = render_component(
-      os.path.join(os.getcwd(), 'static', 'js', 'src', 'components', store['component']),
-      {
-        'comments':comments
-      }
-  )
+def get_columns():
+    columns = [{
+    'Header': 'User',
+    'accessor': 'author'
+    }, {
+    'Header': 'Body',
+    'accessor': 'body'
+    }, {
+    'Header': 'Score',
+    'accessor': 'score',
+    },]
+    return columns
 
-  print(rendered)
+class Data:
+    def __init__(self):
+        email = b.client_email
+        project = b.project_id
+        key = b.credentials
+        print('connecting to server...')
+        self.client = bigquery.client.get_client(project_id = project, service_account=email, private_key_file=key, readonly="true")
+
+    def ping_query(self):
+        # sends query to BQ
+        query = q.subTest
+        print('sending ping...')
+        job, result = self.client.query(query, timeout=10)
+        complete = False
+        # checks if query is complete after 10 secs
+        while not complete:
+            try:
+                complete, progress = self.client.check_job(job)
+            except:
+                print('Download incomplete. Timeout for 10 more secs...')
+                time.sleep(10)
+            else:
+                complete = True
+
+        print ("Progress:", progress, "elements")
+        if complete: 
+            print("query request complete!")
+        return result
