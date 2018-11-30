@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ReactTable from "react-table";
 import { reject } from "bluebird";
+import axios from 'axios';
+
+import "react-table/react-table.css";
 
 // any new args (filtered, subreddit) go in requestData function
 const requestData = (pageSize, page, data) => {
@@ -26,7 +29,8 @@ class Data extends Component {
       loading: false,
       pageSize: 20,
       page: 1,
-
+      data: [],
+      columns: [],
     };
     this.fetchData = this.fetchData.bind(this);
   }
@@ -35,32 +39,30 @@ class Data extends Component {
     // You can set the `loading` prop of the table to true to use the built-in one or show you're own loading bar if you want.
     this.setState({ loading: true });
     // Request the data however you want.  Here, we'll use our mocked service we created earlier
-    requestData(
-      pageSize,
-      page,
-      data
-    ).then(res => {
-      // Now just get the rows of data to your React Table (and update anything else like total pages or loading)
-      this.setState({
-        data: res.rows,
-        pages: res.pages,
-        loading: false
+    axios.get('http://127.0.0.1:5000/comments/')
+      .then((response) => {
+        const { data, columns } = response.data;
+        this.setState({
+          data,
+          columns,
+          loading: false,
+        })
+      })
+      .catch((error) => {
+        // handle error
+        console.log(error);
       });
-    });
   }
   
   render() {
-    const data = this.props.data;
-    const columns = this.props.columns;
-    const { pages, loading, pageSize, page } = this.state;
-    console.log(data);
+    const { pages, loading, pageSize, page, data, columns } = this.state;
     return (    
       <ReactTable
         data={data}
         columns={columns}
         pages={pages}
         loading={loading}
-        // onFetchData={this.fetchData}
+        onFetchData={this.fetchData}
         defaultPageSize={30}
         className="-striped -highlight"
       />

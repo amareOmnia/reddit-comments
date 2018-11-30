@@ -1,5 +1,5 @@
 flask==0.10.1
 optional-django==0.3.0
-requests==2.7.0
+requests==2.18.0
 react
-bigquery
+google-cloud-bigquery
