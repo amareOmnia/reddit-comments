@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Header from './components/Header.jsx';
-import Data from './components/Data.jsx';
+import Search from './components/Search.jsx';
 
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
           tagline='A database of all reddit comments ever'
           disclaimer='Not affiliated with Reddit.com'
         />
-        <Data />
+        <Search/>
       </div>
     );
   }

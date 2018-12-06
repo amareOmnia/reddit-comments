@@ -11,6 +11,11 @@ def get_columns():
     'accessor': 'author',
     'maxWidth': 120
     }, {
+    'Header' : 'Sub',
+    'accessor': 'subreddit',
+    'maxWidth': 80    
+    },
+    {
     'Header': 'Body',
     'accessor': 'body',
     'minWidth': 700
@@ -29,11 +34,11 @@ class Data:
         print('connecting to server...')
         self.client = bigquery.client.get_client(project_id = project, service_account=email, private_key_file=key, readonly="true")
 
-    def ping_query(self):
+    def ping_query(self, new_headers):
         # sends query to BQ
-        query = q.subTest
+        new_query = q.build(new_headers)
         print('sending ping...')
-        job, result = self.client.query(query, timeout=10)
+        job, result = self.client.query(new_query, timeout=10)
         complete = False
         # checks if query is complete after 10 secs
         while not complete:
@@ -49,3 +54,5 @@ class Data:
         if complete: 
             print("query request complete!")
         return result
+
+    

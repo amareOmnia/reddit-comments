@@ -4,33 +4,31 @@ from flask_cors import CORS, cross_origin
 
 import data as d
 
-DEBUG = True
+# default_headers = {
+#     'min_score' : '50',
+#     'ignore_empties' : True,
+#     'ignore_http' : True,
+#     'subreddit' : 'philosophy science',
+#     'total_amount' : '100'
+# }
 
+DEBUG = True
 app = Flask(__name__)
 app.debug = DEBUG
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-
-client = d.Data()
-data = client.ping_query()
+client_server = d.Data()
 columns = d.get_columns()
 
-@app.route('/comments/')
-@cross_origin()
-def comments():
-    return jsonify({
-        'data': data,
-        'columns': columns
-    })
-
-@app.route('/comment/', methods=('POST',))
+@app.route('/query/', methods=('POST',))
 @cross_origin()
 def comment():
-    data.append({
-        'author': request.form['author'],
-        'text': request.form['text'],
-    })
-    return jsonify({'data': data})
+    print("POST received")
+    new_headers = request.get_json()
+    data = client_server.ping_query(new_headers)
+    return jsonify({
+        'data': data,
+        'columns': columns})
 
 @app.route('/clear/')
 @cross_origin()
