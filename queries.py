@@ -1,13 +1,9 @@
 def build(headers):
-    sql_string = '''SELECT body,author,score,subreddit FROM [fh-bigquery:reddit_comments.2017_04] '''
-    if headers['min_score']:
-        sql_string += 'WHERE score>' + str(headers['min_score']) + ' '
-    if headers['ignore_empties']:
-        sql_string += 'AND author != \"[deleted]\" '
+    sql_string = '''SELECT body,author,score,subreddit,link_id,parent_id FROM [fh-bigquery:reddit_comments.2017_04] WHERE author != \"[deleted]\" AND '''
+    print(headers)
+    if headers['min_score'] is not None:
+        sql_string += 'score>' + str(headers['min_score']) + ' '
     i = 0
-    if headers['ignore_http']:
-        sql_string += 'AND body not like \'%http%\' '
-
     if headers['subreddit'] is not None:
         for sub in headers['subreddit'].split():
             if i > 0:

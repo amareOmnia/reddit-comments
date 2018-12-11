@@ -11,10 +11,9 @@ class Search extends React.Component {
     // needed for backend requests
     this.headers = {
       'min_score' : '5',
-      'ignore_empties' : true,
-      'ignore_http' : true,
       'subreddit' : 'science',
-      'total_amount' : '100'
+      'total_amount' : '100',
+      'date' : '2016-12-01'
     };
 
     // needed for state of table browsing
@@ -25,20 +24,10 @@ class Search extends React.Component {
       data: [],
       columns: [],
     };  
-    this.httpIgnored = this.httpIgnored.bind(this);
     this.fetchData = this.fetchData.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
-  // Following two functions return truth value of the ignoring headers to the input form checkbox
-  httpIgnored() {
-    return this.headers.ignore_http === true
-  }
-  
-  emptiesIgnored() {
-    return this.headers.ignore_empties === true
-  }
 
   // called when form is submitted, updates the headers then calls fetchData
   handleSubmit(event) {
@@ -49,19 +38,15 @@ class Search extends React.Component {
     if (event.target.min_score.value) {
       this.headers.min_score = event.target.min_score.value;
     }
-    if (event.target.ignore_empties.value) {
-      this.headers.ignore_empties = event.target.ignore_empties.value;
-    }
-    if (event.target.ignore_http.value) {
-      this.headers.ignore_http = event.target.ignore_http.value;
-    }
     if (event.target.subreddit.value) {
       this.headers.subreddit = event.target.subreddit.value;
     }
     if (event.target.total_amount.value) {
       this.headers.total_amount = event.target.total_amount.value;
     }
-
+    this.setState({
+      page:1
+    })
     this.fetchData();
 
   }
@@ -87,7 +72,7 @@ class Search extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit} method="post" encType="text/plain">
-          <div className="flex">
+          <div className="form-flex">
             <h2 className="">Subreddit: </h2>
             <input type="text" name="subreddit" placeholder={this.headers.subreddit} className="text-field"/>
 
@@ -95,12 +80,11 @@ class Search extends React.Component {
             <input type="text" name="min_score" placeholder={this.headers.min_score} className="text-field"/>
 
             <h2 className="">Search Size: </h2>
-            <input type="text" name="total_amount" placeholder={this.headers.total_amount}className="text-field"/>
-            <div>
-              <input type="checkbox" name="ignore_http" checked={this.httpIgnored()}/> HTTP
-              <br/>
-              <input type="checkbox" name="ignore_empties" checked={this.emptiesIgnored()}/> [deleted]
-            </div>
+            <input type="text" name="total_amount" placeholder={this.headers.total_amount} className="text-field"/>  
+
+            <h2>Date: </h2>
+            <input type="date" name="date" placeholder={this.headers.date} className="text-field"/>          
+            
             <input type="submit" value="Search"/>
           </div>
         </form>

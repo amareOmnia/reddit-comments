@@ -1,3 +1,8 @@
 .text-field {
   margin: 20px;
 }
+
+.form-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
